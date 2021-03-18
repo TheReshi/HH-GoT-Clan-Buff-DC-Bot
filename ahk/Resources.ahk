@@ -24,7 +24,6 @@ WaitForImg(coordArray, variation, imgName, max_wait) {
     foundImg = 0
     counter = 0
     Loop, {
-        OutputDebug, % counter
         Sleep, 50
         ImageSearch, FoundX, FoundY, coordArray[1][1], coordArray[1][2], coordArray[2][1], coordArray[2][2], % " *" . variation . " " . imgName
         if (FoundX != "") {
@@ -73,20 +72,15 @@ RemoveBuff(buff) {
 }
 
 AddBuff(buff, name) {
-    OutputDebug, % "RemoveBuff"
-    RemoveBuff(buff)
-    OutputDebug, % "buffButtonArea"
+    ;RemoveBuff(buff)
     buffButtonArea := GetBuffButtonArea(buff)
-    OutputDebug, % buffButtonArea[1][1] . ", " . buffButtonArea[1][2] . ", " . buffButtonArea[2][1] . ", " . buffButtonArea[2][2]
     addButtonCoord := GetImgCoords(buffButtonArea, 100, conferIcon, 0)
     if (addButtonCoord == -1) {
         return -1
     }
     MouseClick, Left, addButtonCoord[1], addButtonCoord[2], 1, 0
-    OutputDebug, % "searchField"
     searchField := GetImgCoords(searchArea, 70, searchAreaIcon, 0)
     if (searchField == -1) {
-        OutputDebug, % "STOP"
         return -1
     }
     MouseClick, Left, searchField[1], searchField[2], 1, 0
@@ -171,7 +165,6 @@ CloseSearchWindow() {
 
 CheckCBBuff() {
     cbBuffNeeded := ReadFirstLine("cb")
-    OutputDebug, % cbBuffNeeded
     if (cbBuffNeeded != "-1") {
         AddBuff(cbBuffNeeded[1], cbBuffNeeded[2])
     }
@@ -179,13 +172,21 @@ CheckCBBuff() {
 
 CheckGMBuff() {
     gmBuffNeeded := ReadFirstLine("gm")
-    OutputDebug, % gmBuffNeeded
     if (gmBuffNeeded != "-1") {
         AddBuff(gmBuffNeeded[1], gmBuffNeeded[2])
     }
 }
 
+ActivateGoT() {
+    if !WinActive("Gtarcade") {
+        WinActivate, Gtarcade
+        WinActivate, Gtarcade
+        Sleep, 500
+    }
+}
+
 CheckBuffNeeded() {
+    ActivateGoT()
     RemoveBuff("cb")
     RemoveBuff("gm")
     CloseSearchWindow()
