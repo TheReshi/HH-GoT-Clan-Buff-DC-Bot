@@ -187,6 +187,7 @@ ActivateGoT() {
 
 CheckBuffNeeded() {
     ActivateGoT()
+	CloseSearchWindow()
     RemoveBuff("cb")
     RemoveBuff("gm")
     CloseSearchWindow()

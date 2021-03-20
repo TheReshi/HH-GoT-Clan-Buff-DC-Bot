@@ -8,9 +8,12 @@ SetDefaultMouseSpeed, 0
 CoordMode, Mouse, Client
 CoordMode, Pixel, Client
 
+PgUp::
+Run .\buffbot.py
+Sleep, 10000
+CheckBuffNeeded()
+
 PgDn::
+WinClose, C:\Windows\py.exe
 Reload
 return
-
-PgUp::
-CheckBuffNeeded()
