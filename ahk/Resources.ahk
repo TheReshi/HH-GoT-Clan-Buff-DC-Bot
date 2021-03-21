@@ -186,15 +186,17 @@ ActivateGoT() {
 }
 
 CheckBuffNeeded() {
-    ActivateGoT()
-	CloseSearchWindow()
-    RemoveBuff("cb")
-    RemoveBuff("gm")
-    CloseSearchWindow()
-    CheckCBBuff()
-    Sleep, 500
-    CloseSearchWindow()
-    CheckGMBuff()
-    Sleep, buffDelay
-    CheckBuffNeeded()
+    Loop {
+        ActivateGoT()
+        CloseSearchWindow()
+        RemoveBuff("cb")
+        RemoveBuff("gm")
+        CloseSearchWindow()
+        CheckCBBuff()
+        Sleep, 500
+        CloseSearchWindow()
+        CheckGMBuff()
+        Sleep, buffDelay
+        CheckBuffNeeded()
+    }
 }
