@@ -7,7 +7,7 @@ SetDefaultMouseSpeed, 0
 CoordMode, Mouse, Client
 CoordMode, Pixel, Client
 
-GetImgCoords(coordArray, variation, imgName, position, max_wait := 140) {
+GetImgCoords(coordArray, variation, imgName, position, max_wait := 30) {
     imgCoords := WaitForImg(coordArray, variation, imgName, max_wait)
     if (imgCoords == -1) {
         return -1
@@ -30,7 +30,7 @@ WaitForImg(coordArray, variation, imgName, max_wait) {
             foundImg = 1
         }
         counter += 1
-        Sleep, 200
+        Sleep, 1000
     } Until (foundImg == 1 || counter >= max_wait)
     if (counter >= max_wait) {
         return -1
@@ -109,7 +109,7 @@ WriteCurrentBuffs(buffType, name) {
         return -1
     }
 
-    closeWindowButton := GetImgCoords(searchArea, 70, closeWindowIcon, 0, 5)
+    closeWindowButton := GetImgCoords(searchArea, 70, closeWindowIcon, 0, 3)
     if (closeWindowButton == -1) {
         outFile := FileOpen(currentBuffFile, "w")
         outFile.Write(buffType . "," . name)
